@@ -19,7 +19,6 @@ import java.util.List;
 @Builder
 public class Transaction {
     @Id
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
     Long id;

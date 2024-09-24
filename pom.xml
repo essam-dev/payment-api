@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>fr.essam.payment</groupId>
 	<artifactId>payment-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>local-SNAPSHOT</version>
 	<name>payment-api</name>
 	<description>RESTful API to manage payments</description>
 	<url/>
