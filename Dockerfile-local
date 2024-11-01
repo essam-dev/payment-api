@@ -1,0 +1,16 @@
+FROM maven:3.9.9-eclipse-temurin-21-alpine
+
+WORKDIR "/app"
+
+RUN mkdir compile
+
+COPY . ./compile
+
+RUN cd compile &&\
+    mvn clean verify -U &&\
+    cd .. &&\
+    mv ./compile/target/payment-api-local-SNAPSHOT.jar /app/payment-api-local-SNAPSHOT.jar &&\
+    rm -rf compile
+
+
+CMD java -jar /app/payment-api-local-SNAPSHOT.jar
