@@ -41,10 +41,9 @@ class PaymentApiApplicationTests {
 	}
 
 	private void createFistTransaction() throws Exception {
-		TransactionRequest transactionRequest = new TransactionRequest();
 		Item tShirt = new Item(null, "T-shirt", 19.99f, 5);
 		Transaction transaction = new Transaction(null, 99.95f, PaymentType.CREDIT_CARD, PaymentStatus.NEW, List.of(tShirt));
-		transactionRequest.setTransactions(List.of(transaction));
+		TransactionRequest transactionRequest = new TransactionRequest(List.of(transaction));
 
 		this.mockMvc.perform(
 						post("/v1/payments")
@@ -60,10 +59,9 @@ class PaymentApiApplicationTests {
 	}
 
 	private void modifyFirstTransactionStatusAsAuthorized() throws Exception {
-		TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest();
 		Item tShirt = new Item(null, "T-shirt", 19.99f, 5);
 		Transaction transaction = new Transaction(null, 99.95f, PaymentType.CREDIT_CARD, PaymentStatus.AUTHORIZED, List.of(tShirt));
-		transactionUpdateRequest.setTransaction(transaction);
+		TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest(transaction);
 
 		this.mockMvc.perform(
 						put("/v1/payments/{paymentId}", 1)
@@ -79,10 +77,9 @@ class PaymentApiApplicationTests {
 	}
 
 	private void modifyFirstTransactionStatusAsCaptured() throws Exception {
-		TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest();
 		Item tShirt = new Item(null, "T-shirt", 19.99f, 5);
 		Transaction transaction = new Transaction(null, 99.95f, PaymentType.CREDIT_CARD, PaymentStatus.CAPTURED, List.of(tShirt));
-		transactionUpdateRequest.setTransaction(transaction);
+		TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest(transaction);
 
 		this.mockMvc.perform(
 						put("/v1/payments/{paymentId}", 1)
@@ -98,11 +95,10 @@ class PaymentApiApplicationTests {
 	}
 
 	private void createSecondTransaction() throws Exception {
-		TransactionRequest transactionRequest = new TransactionRequest();
 		Item bike = new Item(null, "bike", 208.00f, 1);
 		Item shoes = new Item(null, "shoes", 30.00f, 1);
 		Transaction transaction = new Transaction(null, 238.00f, PaymentType.PAYPAL, PaymentStatus.NEW, List.of(bike, shoes));
-		transactionRequest.setTransactions(List.of(transaction));
+		TransactionRequest transactionRequest = new TransactionRequest(List.of(transaction));
 
 		this.mockMvc.perform(
 						post("/v1/payments")
@@ -116,11 +112,10 @@ class PaymentApiApplicationTests {
 	}
 
 	private void modifySecondTransactionStatusAsCanceled() throws Exception {
-		TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest();
 		Item bike = new Item(null, "bike", 208.00f, 1);
 		Item shoes = new Item(null, "shoes", 30.00f, 1);
 		Transaction transaction = new Transaction(null, 238.00f, PaymentType.PAYPAL, PaymentStatus.NEW, List.of(bike, shoes));
-		transactionUpdateRequest.setTransaction(transaction);
+		TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest(transaction);
 
 		this.mockMvc.perform(
 						put("/v1/payments/{paymentId}", 2)
