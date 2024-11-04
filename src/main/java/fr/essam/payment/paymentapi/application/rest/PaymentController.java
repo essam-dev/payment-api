@@ -7,6 +7,8 @@ import fr.essam.payment.paymentapi.application.rest.response.TransactionResponse
 import fr.essam.payment.paymentapi.domain.model.TransactionOutput;
 import fr.essam.payment.paymentapi.domain.model.TransactionUpdateOutput;
 import fr.essam.payment.paymentapi.domain.ports.PaymentServicePort;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.info.Info;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +16,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static fr.essam.payment.paymentapi.application.rest.utils.PaymentResources.API_VERSION;
+import static fr.essam.payment.paymentapi.application.rest.utils.PaymentResources.API_VERSION_TITLE;
+
 @Slf4j
 @RestController
-@RequestMapping("/v1/payments")
+@RequestMapping(API_VERSION + "/payments")
 @RequiredArgsConstructor
+@OpenAPIDefinition(
+        info = @Info(
+                title = "Payment API",
+                version = API_VERSION_TITLE,
+                description = "Api documentation"
+        )
+)
 public class PaymentController {
 
     private final PaymentServicePort paymentServicePort;
