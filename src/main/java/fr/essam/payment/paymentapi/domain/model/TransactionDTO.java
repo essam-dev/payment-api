@@ -2,9 +2,7 @@ package fr.essam.payment.paymentapi.domain.model;
 
 import fr.essam.payment.paymentapi.domain.utils.PaymentStatus;
 import fr.essam.payment.paymentapi.domain.utils.PaymentType;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
