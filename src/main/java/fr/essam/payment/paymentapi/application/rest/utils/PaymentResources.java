@@ -7,4 +7,5 @@ public class PaymentResources {
 
     public static final String API_VERSION = "/v1";
     public static final String API_VERSION_TITLE = "1.0.0";
+    public static final String API_ENDPOINT = API_VERSION + "/payments";
 }

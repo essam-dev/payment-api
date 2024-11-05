@@ -20,6 +20,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasSize;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class StepDefs  extends SpringIntegrationTest{
 
     private MvcResult mvcResult;
+    private static final String BASIC_AUTH_USERNAME = "buyer1";
+    private static final String BASIC_AUTH_PASSWORD = "buyerpassword";
 
     @Given("I have a credit card payment")
     public void iHaveACreditCardPayment() throws Exception{
@@ -36,6 +39,7 @@ public class StepDefs  extends SpringIntegrationTest{
 
         getMockMvc().perform(
                         post("/v1/payments")
+                                .with(httpBasic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(asJsonString(transactionRequest)));
     }
@@ -48,6 +52,7 @@ public class StepDefs  extends SpringIntegrationTest{
 
         getMockMvc().perform(
                         put("/v1/payments/{paymentId}", 1)
+                                .with(httpBasic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(asJsonString(transactionUpdateRequest)));
 
@@ -57,6 +62,7 @@ public class StepDefs  extends SpringIntegrationTest{
 
         getMockMvc().perform(
                         put("/v1/payments/{paymentId}", 1)
+                                .with(httpBasic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(asJsonString(transactionUpdateRequest)));
     }
@@ -64,7 +70,8 @@ public class StepDefs  extends SpringIntegrationTest{
     @Then("I should see the payment is captured")
     public void iShouldSeeThePaymentIsCaptured() throws Exception{
         getMockMvc().perform(
-                        get("/v1/payments/{paymentId}", 1))
+                        get("/v1/payments/{paymentId}", 1)
+                                .with(httpBasic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.transactions", hasSize(1)))
                 .andExpect(jsonPath("$.transactions[0].paymentType").value("CREDIT_CARD"))
@@ -84,6 +91,7 @@ public class StepDefs  extends SpringIntegrationTest{
 
         getMockMvc().perform(
                         post("/v1/payments")
+                                .with(httpBasic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(asJsonString(transactionRequest)));
     }
@@ -97,6 +105,7 @@ public class StepDefs  extends SpringIntegrationTest{
 
         getMockMvc().perform(
                         put("/v1/payments/{paymentId}", 2)
+                                .with(httpBasic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD))
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(asJsonString(transactionUpdateRequest)));
     }
@@ -104,7 +113,8 @@ public class StepDefs  extends SpringIntegrationTest{
     @Then("I should see the payment is canceled")
     public void iShouldSeeThePaymentIsCanceled() throws Exception{
         getMockMvc().perform(
-                        get("/v1/payments/{paymentId}", 2))
+                        get("/v1/payments/{paymentId}", 2)
+                                .with(httpBasic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.transactions", hasSize(1)))
                 .andExpect(jsonPath("$.transactions[0].paymentType").value("PAYPAL"))
@@ -116,7 +126,8 @@ public class StepDefs  extends SpringIntegrationTest{
     @When("I retrieve all transactions")
     public void iRetrieveAllTransactions() throws Exception {
         mvcResult = getMockMvc().perform(
-                        get("/v1/payments"))
+                        get("/v1/payments")
+                                .with(httpBasic(BASIC_AUTH_USERNAME, BASIC_AUTH_PASSWORD)))
                 .andReturn();
     }
 
