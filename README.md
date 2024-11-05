@@ -1,4 +1,4 @@
-# Exercise OnePay - Version 2.1
+# OnePay
 
 ## Objective
 
@@ -35,11 +35,3 @@ To verify the correctness of the API, build a test suite representing the follow
 - Modification of the transaction to the status `CANCELED`.
 
 - Retrieval of all transactions.
-
-## Submission
-
-The API must be built in English.
-
-The code must be delivered as a project accessible via a public Git repository (Github, Gitlab, or similar). If this is not possible, please contact us in advance.
-
-Feel free to ask us any questions or clarifications about the exercise.
