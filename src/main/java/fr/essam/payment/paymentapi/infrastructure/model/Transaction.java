@@ -1,6 +1,5 @@
 package fr.essam.payment.paymentapi.infrastructure.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import fr.essam.payment.paymentapi.domain.utils.PaymentStatus;
 import fr.essam.payment.paymentapi.domain.utils.PaymentType;
 import jakarta.persistence.*;
@@ -32,6 +31,6 @@ public class Transaction {
     @Column
     PaymentStatus paymentStatus;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     List<Item> items;
 }
