@@ -34,7 +34,7 @@ public class StepDefs  extends SpringIntegrationTest{
     @Given("I have a credit card payment")
     public void iHaveACreditCardPayment() throws Exception{
         Item tShirt = new Item(null, "T-shirt", 19.99f, 5);
-        Transaction transaction = new Transaction(null, 99.95f, PaymentType.CREDIT_CARD, PaymentStatus.NEW, List.of(tShirt));
+        Transaction transaction = new Transaction(null, PaymentType.CREDIT_CARD, PaymentStatus.NEW, List.of(tShirt));
         TransactionRequest transactionRequest = new TransactionRequest(List.of(transaction));
 
         getMockMvc().perform(
@@ -47,7 +47,7 @@ public class StepDefs  extends SpringIntegrationTest{
     @When("I modify the payment status to authorized then to captured")
     public void iModifyThePaymentStatusToAuthorizedThenToCaptured() throws Exception {
         Item tShirt = new Item(null, "T-shirt", 19.99f, 5);
-        Transaction transaction = new Transaction(null, 99.95f, PaymentType.CREDIT_CARD, PaymentStatus.AUTHORIZED, List.of(tShirt));
+        Transaction transaction = new Transaction(null, PaymentType.CREDIT_CARD, PaymentStatus.AUTHORIZED, List.of(tShirt));
         TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest(transaction);
 
         getMockMvc().perform(
@@ -57,7 +57,7 @@ public class StepDefs  extends SpringIntegrationTest{
                                 .content(asJsonString(transactionUpdateRequest)));
 
         tShirt = new Item(null, "T-shirt", 19.99f, 5);
-        transaction = new Transaction(null, 99.95f, PaymentType.CREDIT_CARD, PaymentStatus.CAPTURED, List.of(tShirt));
+        transaction = new Transaction(null, PaymentType.CREDIT_CARD, PaymentStatus.CAPTURED, List.of(tShirt));
         transactionUpdateRequest = new TransactionUpdateRequest(transaction);
 
         getMockMvc().perform(
@@ -86,7 +86,7 @@ public class StepDefs  extends SpringIntegrationTest{
     public void iHaveAPaypalPayment() throws Exception{
         Item bike = new Item(null, "bike", 208.00f, 1);
         Item shoes = new Item(null, "shoes", 30.00f, 1);
-        Transaction transaction = new Transaction(null, 238.00f, PaymentType.PAYPAL, PaymentStatus.NEW, List.of(bike, shoes));
+        Transaction transaction = new Transaction(null, PaymentType.PAYPAL, PaymentStatus.NEW, List.of(bike, shoes));
         TransactionRequest transactionRequest = new TransactionRequest(List.of(transaction));
 
         getMockMvc().perform(
@@ -100,7 +100,7 @@ public class StepDefs  extends SpringIntegrationTest{
     public void iModifyThePaymentStatusToCanceled() throws Exception {
         Item bike = new Item(null, "bike", 208.00f, 1);
         Item shoes = new Item(null, "shoes", 30.00f, 1);
-        Transaction transaction = new Transaction(null, 238.00f, PaymentType.PAYPAL, PaymentStatus.CANCELED, List.of(bike, shoes));
+        Transaction transaction = new Transaction(null, PaymentType.PAYPAL, PaymentStatus.CANCELED, List.of(bike, shoes));
         TransactionUpdateRequest transactionUpdateRequest = new TransactionUpdateRequest(transaction);
 
         getMockMvc().perform(
